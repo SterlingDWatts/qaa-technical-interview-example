@@ -95,7 +95,7 @@ const Dialog = () => {
         }}
       >
         <Button variant="contained" onClick={() => setOpen(true)}>
-          GETTING TO KNOW YOU SURVEY
+          GETING TO KNOW YOU SURVEY
         </Button>
       </Box>
       <MUIDialog open={open} onClose={handleClose}>

@@ -52,7 +52,7 @@ const NameScreen: React.FC<Props> = ({
       <DialogTitle>Hello!</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Let&apos;s get to know each other. What is your name?
+          Lets get to know each other. What&apos;s your name?
         </DialogContentText>
         <TextField
           autoFocus
