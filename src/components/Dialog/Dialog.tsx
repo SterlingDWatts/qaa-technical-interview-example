@@ -1,107 +1,53 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MUIDialog from "@mui/material/Dialog";
 
 import CloseIcon from "@mui/icons-material/Close";
 
+import Block from "../Home/Block";
+import BlockImage from "../Home/BlockImage";
+import BlockLocation from "../Home/BlockLocation";
 import NameScreen from "./NameScreen";
 import FavNumberScreen from "./FavNumberScreen";
 import FinalScreen from "./FinalScreen";
 
+import { Context } from "../../contexts/dialogContext";
+
 const Dialog = () => {
-  const [open, setOpen] = useState(true);
-  const [name, setName] = useState("");
-  const [favNumber, setFavNumber] = useState("");
-  const [screen, setScreen] = useState(0);
-  const [nameNextDisabled, setNameNextDisabled] = useState(true);
+  const context = useContext(Context);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  let CurrentScreen = NameScreen;
 
-  let currentScreen: JSX.Element;
-
-  switch (screen) {
+  switch (context?.state.screen) {
     case 0:
-      currentScreen = (
-        <NameScreen
-          name={name}
-          screen={screen}
-          nameNextDisabled={nameNextDisabled}
-          setName={setName}
-          setScreen={setScreen}
-          setNameNextDisabled={setNameNextDisabled}
-        />
-      );
+      CurrentScreen = NameScreen;
       break;
     case 1:
-      currentScreen = (
-        <FavNumberScreen
-          favNumber={favNumber}
-          name={name}
-          screen={screen}
-          setFavNumber={setFavNumber}
-          setScreen={setScreen}
-        />
-      );
+      CurrentScreen = FavNumberScreen;
       break;
     case 2:
-      currentScreen = (
-        <FinalScreen
-          name={name}
-          favNumber={favNumber}
-          screen={screen}
-          setOpen={setOpen}
-          setScreen={setScreen}
-        />
-      );
+      CurrentScreen = FinalScreen;
       break;
     default:
-      currentScreen = (
-        <NameScreen
-          name={name}
-          screen={screen}
-          nameNextDisabled={nameNextDisabled}
-          setName={setName}
-          setScreen={setScreen}
-          setNameNextDisabled={setNameNextDisabled}
-        />
-      );
+      CurrentScreen = NameScreen;
       break;
-  }
-
-  if (localStorage.getItem("show-survey") !== "true") {
-    return null;
   }
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          gridColumnEnd: {
-            xs: "span 4",
-            md: "span 8",
-            lg: "span 12",
-          },
-          order: {
-            xs: -2,
-            md: "initial",
-          },
-        }}
+      <Block onClick={() => context?.setOpen(true)}>
+        <BlockImage imgId={1025} />
+        <BlockLocation location="GETING TO KNOW YOU SURVEY" />
+      </Block>
+
+      <MUIDialog
+        open={context?.state.open || false}
+        onClose={() => context?.setOpen(false)}
       >
-        <Button variant="contained" onClick={() => setOpen(true)}>
-          GETING TO KNOW YOU SURVEY
-        </Button>
-      </Box>
-      <MUIDialog open={open} onClose={handleClose}>
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={() => context?.setOpen(false)}
           sx={{
             position: "absolute",
             right: 8,
@@ -111,7 +57,7 @@ const Dialog = () => {
         >
           <CloseIcon />
         </IconButton>
-        {currentScreen}
+        <CurrentScreen />
       </MUIDialog>
     </>
   );

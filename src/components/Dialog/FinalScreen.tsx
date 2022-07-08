@@ -1,6 +1,4 @@
-import React from "react";
-
-import { v4 as uuidv4 } from "uuid";
+import React, { useContext } from "react";
 
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,49 +6,34 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-interface Props {
-  name: string;
-  favNumber: string;
-  screen: number;
-  setScreen: (number: number) => void;
-  setOpen: (isOpen: boolean) => void;
-}
+import { Context } from "../../contexts/dialogContext";
 
-const FinalScreen: React.FC<Props> = ({
-  name,
-  favNumber,
-  screen,
-  setScreen,
-  setOpen,
-}) => {
+import { pushToDataLayer } from "../../utils/utils";
+
+const FinalScreen = () => {
+  const context = useContext(Context);
   const message =
-    favNumber === "3"
-      ? `That's cool! 3 is my favorite number as well. Have a great day ${name}.`
-      : `My favorite number is 3, but ${favNumber} is a pretty cool number too! Have a great day ${name}.`;
+    context?.state.favNumber === "3"
+      ? `That's cool! 3 is my favorite number as well. Have a great day ${context?.state.name}.`
+      : `My favorite number is 3, but ${context?.state.favNumber} is a pretty cool number too! Have a great day ${context?.state.name}.`;
 
   const handlePrevClick = () => {
-    window.dataLayer.push({
-      id: uuidv4(),
-      module: "Get to know you dialog",
-      screen,
-      event: "Prev clicked",
+    pushToDataLayer("Get to know you dialog", "Prev clicked", null, {
+      screen: context?.state.screen,
     });
-    setScreen(screen - 1);
+    context?.setScreen(context?.state.screen - 1);
   };
 
   const handleCloseClick = () => {
-    window.dataLayer.push({
-      id: uuidv4(),
-      module: "Get to know you dialog",
-      screen,
-      event: "Close clicked",
+    pushToDataLayer("Get to know you dialog", "Close clicked", null, {
+      screen: context?.state.screen,
     });
-    setOpen(false);
+    context?.setOpen(false);
   };
 
   return (
     <>
-      <DialogTitle>Thanks for sharing, {name}!</DialogTitle>
+      <DialogTitle>Thanks for sharing, {context?.state.name}!</DialogTitle>
       <DialogContent>
         <DialogContentText>{message}</DialogContentText>
       </DialogContent>

@@ -1,6 +1,4 @@
-import React from "react";
-
-import { v4 as uuidv4 } from "uuid";
+import React, { useContext } from "react";
 
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,45 +7,33 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
-interface Props {
-  favNumber: string;
-  name: string;
-  screen: number;
-  setFavNumber: (number: string) => void;
-  setScreen: (screenNumber: number) => void;
-}
+import { Context } from "../../contexts/dialogContext";
 
-const FavNumberScreen: React.FC<Props> = ({
-  favNumber,
-  name,
-  screen,
-  setFavNumber,
-  setScreen,
-}) => {
+import { pushToDataLayer } from "../../utils/utils";
+
+const FavNumberScreen = () => {
+  const context = useContext(Context);
+
   const handleNextClick = () => {
-    window.dataLayer.push({
-      id: uuidv4(),
-      module: "Get to know you dialog",
-      screen,
-      event: "Next clicked",
-      data: JSON.stringify({ favNumber }),
-    });
-    setScreen(screen + 1);
+    pushToDataLayer(
+      "Get to know you dialog",
+      "Next clicked",
+      { favNumber: context?.state.favNumber },
+      { screen: context?.state.screen }
+    );
+    context?.setScreen(context?.state.screen + 1);
   };
 
   const handlePrevClick = () => {
-    window.dataLayer.push({
-      id: uuidv4(),
-      module: "Get to know you dialog",
-      screen,
-      event: "Prev clicked",
+    pushToDataLayer("Get to know you dialog", "Prev clicked", null, {
+      screen: context?.state.screen,
     });
-    setScreen(screen - 1);
+    context?.setScreen(context?.state.screen - 1);
   };
 
   return (
     <>
-      <DialogTitle>Nice to meet you {name}!</DialogTitle>
+      <DialogTitle>Nice to meet you {context?.state.name}!</DialogTitle>
       <DialogContent>
         <DialogContentText>
           What is your favorite single digit integer?
@@ -59,13 +45,13 @@ const FavNumberScreen: React.FC<Props> = ({
           type="text"
           fullWidth
           variant="standard"
-          value={favNumber}
-          onChange={(e) => setFavNumber(e.target.value)}
+          value={context?.state.favNumber}
+          onChange={(e) => context?.setFavNumber(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={handlePrevClick}>Prev</Button>
-        <Button onClick={handleNextClick} disabled={!favNumber}>
+        <Button onClick={handleNextClick} disabled={!context?.state.favNumber}>
           Next
         </Button>
       </DialogActions>

@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-
-import { v4 as uuidv4 } from "uuid";
+import React, { useContext, useEffect } from "react";
 
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,42 +7,31 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
-interface Props {
-  name: string;
-  screen: number;
-  nameNextDisabled: boolean;
-  setName: (name: string) => void;
-  setScreen: (screenNumber: number) => void;
-  setNameNextDisabled: (isDisabled: boolean) => void;
-}
+import { Context } from "../../contexts/dialogContext";
 
-const NameScreen: React.FC<Props> = ({
-  name,
-  screen,
-  nameNextDisabled,
-  setName,
-  setScreen,
-  setNameNextDisabled,
-}) => {
+import { pushToDataLayer } from "../../utils/utils";
+
+const NameScreen = () => {
+  const context = useContext(Context);
+
   useEffect(() => {
-    setName("");
+    context?.setName("");
   }, []);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setName(e.target.value);
-    setNameNextDisabled(!value);
+    context?.setName(e.target.value);
+    context?.setNameScreenNextDisabled(!value);
   };
 
   const handleNextClick = () => {
-    window.dataLayer.push({
-      id: uuidv4(),
-      module: "Get to know you dialog",
-      screen,
-      event: "Next clicked",
-      data: JSON.stringify({ name }),
-    });
-    setScreen(screen + 1);
+    pushToDataLayer(
+      "Get to know you dialog",
+      "Next clicked",
+      { name: context?.state.name },
+      { screen: context?.state.screen }
+    );
+    context?.setScreen(context?.state.screen + 1);
   };
 
   return (
@@ -62,12 +49,15 @@ const NameScreen: React.FC<Props> = ({
           type="text"
           fullWidth
           variant="standard"
-          value={name}
+          value={context?.state.name}
           onChange={handleNameChange}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleNextClick} disabled={nameNextDisabled}>
+        <Button
+          onClick={handleNextClick}
+          disabled={context?.state.nameScreenNextDisabled}
+        >
           Next
         </Button>
       </DialogActions>

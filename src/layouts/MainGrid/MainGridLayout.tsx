@@ -10,11 +10,20 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Grid = styled(Container)(() => ({
+const Grid = styled(Container)(({ theme }) => ({
   display: "grid",
   columnGap: "16px",
   rowGap: "16px",
   padding: "0px",
+  [theme.breakpoints.up("xs")]: {
+    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+  },
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+  },
+  [theme.breakpoints.up("lg")]: {
+    gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+  },
 }));
 
 const MainGridLayout: React.FC<Props> = ({ children }) => {
@@ -27,18 +36,7 @@ const MainGridLayout: React.FC<Props> = ({ children }) => {
       <HorizontalNavBar />
 
       <Box maxWidth="lg" sx={{ margin: "0px auto" }}>
-        <Grid
-          sx={{
-            gridTemplateColumns: {
-              xs: "1fr 1fr 1fr 1fr",
-              sm: "1fr 1fr 1fr 1fr",
-              md: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-              lg: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-            },
-          }}
-        >
-          {children}
-        </Grid>
+        <Grid>{children}</Grid>
       </Box>
     </>
   );

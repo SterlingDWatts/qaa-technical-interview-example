@@ -6,9 +6,10 @@ This is a web app that can be used as an practical example for a technical inter
 
 1. Navigate to [QA Form](https://qaa-technical-interview-example.vercel.app/)
 2. Enable the feature by adding and item to localStorage with the key `show-survey` and the value of `true`
-3. Read User Story and Acceptance Criteria
-4. Test new feature and note discrepencies with given Acceptance Criteria
-5. Discuss any additional edge cases worth testing and what to do if anything is discovered
+3. Refresh the page
+4. Read User Story and Acceptance Criteria
+5. Test new feature and note discrepencies with given Acceptance Criteria
+6. Discuss any additional edge cases worth testing and what to do if anything is discovered
 
 ## User Story
 

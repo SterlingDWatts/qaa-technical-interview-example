@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 
 import MainGridLayout from "./layouts/MainGrid/MainGridLayout";
 
-import Dialog from "./components/Dialog/Dialog";
 import Blocks from "./components/Home/Blocks";
 
 import "./App.css";
@@ -15,7 +14,6 @@ function App() {
   return (
     <MainGridLayout>
       <Blocks />
-      <Dialog />
     </MainGridLayout>
   );
 }
