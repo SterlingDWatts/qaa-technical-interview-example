@@ -30,7 +30,7 @@ const MainGridLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Typography variant="h1" component="h1" sx={{ textAlign: "center" }}>
-        QA FORM
+        QA EXAMPLES
       </Typography>
 
       <HorizontalNavBar />

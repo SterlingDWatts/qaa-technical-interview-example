@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 
-import MainGridLayout from "./layouts/MainGrid/MainGridLayout";
+import { Route, Routes } from "react-router-dom";
 
-import Blocks from "./components/Home/Blocks";
+import LandingPage from "./pages/LandingPage";
+import AcceptanceCriteriaPage from "./pages/AcceptanceCriteriaPage";
 
 import "./App.css";
 
@@ -12,9 +13,10 @@ function App() {
   }, []);
 
   return (
-    <MainGridLayout>
-      <Blocks />
-    </MainGridLayout>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="acceptance-criteria" element={<AcceptanceCriteriaPage />} />
+    </Routes>
   );
 }
 

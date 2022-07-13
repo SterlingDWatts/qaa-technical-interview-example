@@ -4,63 +4,12 @@ This is a web app that can be used as an practical example for a technical inter
 
 ## Instructions
 
-1. Navigate to [QA Form](https://qaa-technical-interview-example.vercel.app/)
+1. Navigate to [QA Examples](https://qaa-technical-interview-example.vercel.app/)
 2. Enable the feature by adding and item to localStorage with the key `show-survey` and the value of `true`
-3. Refresh the page
-4. Read User Story and Acceptance Criteria
-5. Test new feature and note discrepencies with given Acceptance Criteria
-6. Discuss any additional edge cases worth testing and what to do if anything is discovered
-
-## User Story
-
-As a marketer I would like a survey on the site so that I can get more information about our users.
-
-## Acceptance Criteria
-
-- Dialog component for survey shows on page load
-- Clicking the "x" icon at any point in the survey, closes the dialog
-- CTA on main page says "GETTING TO KNOW YOU SURVEY"
-- Clicking "GETTING TO KNOW YOU SURVEY" CTA opens dialog on first screen (Screen that says "Hello!" at the top)
-- Information from inputs should persist when using prev/next buttons
-
-### Dialog
-
-- Title:
-  - Font Size: 20px
-  - Font Weight: 500
-- Copy:
-  - Font Size: 14px
-  - Font Weight: 400
-- Prev/Next/Close Buttons:
-  - Font Size: 14px
-  - Font Weight: 500
-  - Color: rgba(4, 20, 35, 0.294)
-  - Color when disabled: rgba(0, 0, 0, 0.9)
-  - Button is disabled if there is an input field and it is empty
-  - Clicking the button adds data to the dataLayer
-- X icon (close button):
-  - Clicking button closes dialog. Dialog should start on first screen when opened again
-
-### First Screen
-
-- Title: "Hello!"
-- Copy: "Let's get to know each other. What is your name?"
-- Input: text input for name
-- Button: "NEXT"
-
-### Second Screen
-
-- Title: "Nice to meet you [name]!"
-- Copy: "What is your favorite single digit integer?"
-- Input: number input for favorite number
-- Buttons: "PREV" & "NEXT"
-
-### Last Screen
-
-- Title: "Thanks for sharing, [name]!"
-- Copy: "My favorite number is 3, but [favorite-number] is a pretty cool number too! Have a great day [name]." or "That's cool! 3 is my favorite number as well. Have a great day [name]."
-- Input: number input for favorite number
-- Buttons: "PREV" & "CLOSE"
+3. Read User Story, Build Description, and Acceptance Criteria [Accpetance Criteria](https://qaa-technical-interview-example.vercel.app/acceptance-criteria)
+4. Test new feature and note discrepencies with given Acceptance Criteria
+5. Discuss any additional edge cases worth testing and what to do if anything is discovered
+6. DataLayers can be seen in the console on chrome by typing in `dataLayer`
 
 ## Available Scripts
 
